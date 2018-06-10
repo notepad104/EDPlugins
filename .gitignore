@@ -59,3 +59,11 @@ typings/
 
 # next.js build output
 .next
+
+# - #
+TODO.md
+package-lock.json
+.gitlab*
+private*
+plugins/google.js
+plugins/perguntas.js
