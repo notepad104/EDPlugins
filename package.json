@@ -1,0 +1,39 @@
+{
+  "name": "edplugins",
+  "version": "1.0.0",
+  "description": "Plugins for RobôED in NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Nice Test :)\"",
+    "clear-npm": "node-prune",
+    "start": "env-cmd .env node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:SynkoDevelopers/EDPlugins.git"
+  },
+  "keywords": [
+    "roboed",
+    "bot",
+    "telegrambot"
+  ],
+  "author": "Synko Developers",
+  "contributors": [
+    "Tiago Danin <TiagoDanin@outlook.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "9gag": "2.0.0",
+    "debug": "3.1.0",
+    "env-cmd": "7.0.0",
+    "gsearch": "1.0.1",
+    "jformat": "1.0.4",
+    "request": "2.85.0",
+    "request-promise-native": "1.0.5",
+    "telegraf": "3.20.0"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "private": false
+}
