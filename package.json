@@ -25,7 +25,7 @@
   "dependencies": {
     "9gag": "2.0.0",
     "debug": "3.1.0",
-    "env-cmd": "7.0.0",
+    "env-cmd": "8.0.2",
     "gsearch": "1.0.1",
     "jformat": "1.0.4",
     "request": "2.87.0",
