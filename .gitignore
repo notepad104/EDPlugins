@@ -67,3 +67,4 @@ package-lock.json
 private*
 plugins/google.js
 plugins/perguntas.js
+plugins/dado.js
