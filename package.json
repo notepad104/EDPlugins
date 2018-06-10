@@ -30,7 +30,7 @@
     "jformat": "1.0.4",
     "request": "2.87.0",
     "request-promise-native": "1.0.5",
-    "telegraf": "3.20.0"
+    "telegraf": "3.21.2"
   },
   "engines": {
     "node": ">=8"
