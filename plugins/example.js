@@ -3,7 +3,18 @@ function plugin(ctx) {
 }
 
 function inline(ctx) {
-	return //Soon
+	return ctx.answerInlineQuery([
+		{
+			type: 'article',
+			title: ':)',
+			id: 'smile',
+			input_message_content: {
+				message_text: ':)'
+			}
+		}
+	], {
+		cache_time: 120
+	})
 }
 
 const about = 'Sobre esse plugin'
@@ -11,7 +22,7 @@ const regex = /^\/command-regex/i
 
 module.exports = {
 	plugin,
-	inline, //Soon
+	inline,
 	about,
 	regex
 }

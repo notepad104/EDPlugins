@@ -1,5 +1,6 @@
 const request = require('request-promise-native')
-async function plugin(ctx) {
+
+async function base(ctx) {
 	var input = ctx.match[1]
 	if (input == undefined) {
 		input = 'random'
@@ -33,8 +34,34 @@ async function plugin(ctx) {
 			post_select.push(post)
 		}
 	})
+	return post_select
+}
+
+async function plugin(ctx) {
+	var post_select = await base(ctx)
 	var select = post_select[Math.floor((Math.random() * post_select.length) + 1)]
 	return ctx.replyWithDocument(select.images.original_mp4.mp4)
+}
+
+async function inline(ctx) {
+	var result = []
+	var posts = await base(ctx)
+	var n = 0
+	posts.forEach(select => {
+		console.log(select)
+		var url = select.images.original_mp4.mp4
+		n++
+		result.push({
+			type: 'gif',
+			title: '...',
+			id: `gifs${n}`,
+			gif_url: url,
+			thumb_url: url
+		})
+	})
+	ctx.answerInlineQuery(result, {
+		cache_time: 0
+	})
 }
 
 const regex = /^\/gif[s\s]*(.+)*/i
@@ -42,6 +69,7 @@ const about = 'Enviar um Gif relacionado com o assunto mencionado.'
 
 module.exports = {
 	plugin,
+	inline,
 	about,
 	regex
 }

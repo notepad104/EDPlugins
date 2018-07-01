@@ -16,6 +16,8 @@ const dlogError = debug("bot:error")
 	});
 }*/
 
+//bot.telegram.deleteWebhook()
+
 dlogBot("Start bot")
 bot.telegram.sendMessage('89198119',
 	'*BOT INICIADO*\nLOVE NODEJS', {
@@ -34,6 +36,9 @@ const plugins = [
 	'ping',
 	'xkcd'
 ]
+
+var inline = []
+
 plugins.forEach(p => {
 	dlogPlugins(`Install plugin: ${p}`)
 	var _ = require(`./plugins/${p}`)
@@ -41,8 +46,38 @@ plugins.forEach(p => {
 		dlogPlugins(`Runnig plugin: ${p}`)
 		_.plugin(ctx)
 	})
+	if (_.inline) {
+		inline.push(_)
+	}
 })
 
+bot.on('inline_query', (ctx) => {
+	var isFound = false
+	var text = '/' + ctx.update.inline_query.query
+	inline.forEach(_ => {
+		var regex = _.regex
+		regex.lastIndex = 0
+		var match = regex.exec(text || '')
+		if (match) {
+			isFound = true
+			ctx.match = match
+			dlogInline(`Runnig inline plugin: ${_}`)
+			_.inline(ctx)
+		}
+	})
+	if (!isFound) {
+		ctx.answerInlineQuery([{
+			type: 'article',
+			title: 'Não há resultados!',
+			id: 'notfound',
+			input_message_content: {
+				message_text: 'Não há resultados!'
+			}
+		}], {
+			cache_time: 0
+		})
+	}
+})
 
 bot.catch((err) => {
 	dlogError(`Oooops ${err}`)
