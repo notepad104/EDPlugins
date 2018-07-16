@@ -28,12 +28,13 @@ async function base(user) {
 	}
 }
 
-function plugin(ctx) {
-	return ctx.replyWithHTML(base(ctx.match[1]).output)
+async function plugin(ctx) {
+	var output = await base(ctx.match[1]).output
+	return ctx.replyWithHTML(output)
 }
 
-function inline(ctx) {
-	var info = base(ctx.match[1])
+async function inline(ctx) {
+	var info = await base(ctx.match[1])
 
 	ctx.answerInlineQuery([
 		{
@@ -42,6 +43,7 @@ function inline(ctx) {
 			id: `github${info.login}`,
 			input_message_content: {
 				message_text: info.output,
+				parse_mode: 'HTML'
 			}
 		}
 	], {

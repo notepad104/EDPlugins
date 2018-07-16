@@ -33,9 +33,11 @@ const plugins = [
 	'gif',
 	'github',
 	//'google'
+	'ip',
 	'latex',
 	//'perguntas',
 	'ping',
+	'torrent',
 	'xkcd'
 ]
 
