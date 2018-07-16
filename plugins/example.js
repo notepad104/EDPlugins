@@ -17,12 +17,18 @@ function inline(ctx) {
 	})
 }
 
-const about = 'Sobre esse plugin'
+const name = 'Plugin de Exemplo'
+const about = 'Sobre esse plugin.'
+const classification = ['Example']
 const regex = /^\/command-regex/i
+const example = '/command-regex' //or ['/command-regex', /Command-Regex]
 
 module.exports = {
+	name,
 	plugin,
 	inline,
 	about,
-	regex
+	classification,
+	regex,
+	example
 }

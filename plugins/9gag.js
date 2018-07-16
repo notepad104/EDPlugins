@@ -49,12 +49,12 @@ async function inline(ctx) {
 	})
 }
 
-const about = 'Enviar imagens aleatórias do site 9GAG.com.'
-const regex = /^\/[9]*gag/i
-
 module.exports = {
+	name: '9GAG',
+	about: 'Enviar imagens aleatórias do site 9GAG.com.',
+	regex: /^\/[9]*gag/i,
+	example: '/9gag',
+	classification: ['Entretenimento'],
 	plugin,
-	inline,
-	about,
-	regex
+	inline
 }

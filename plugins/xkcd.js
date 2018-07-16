@@ -41,8 +41,11 @@ const regex = /^\/xkcd([ ](\d*))*/i
 const about = 'Enviar uma imagem do xkcd.'
 
 module.exports = {
+	name: 'XKCD',
+	about: 'Enviar uma imagem do xkcd.',
+	regex: /^\/xkcd([ ](\d*))*/i,
+	example: ['/xkcd', '/xkcd 123'],
+	classification: ['Entretenimento', 'Pesquisa'],
 	plugin,
-	inline,
-	about,
-	regex
+	inline
 }

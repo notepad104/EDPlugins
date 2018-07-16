@@ -29,6 +29,7 @@ const plugins = [
 	'9gag',
 	'coelho',
 	//'dado',
+	//example'
 	'gif',
 	//'google'
 	'latex',
@@ -42,10 +43,12 @@ var inline = []
 plugins.forEach(p => {
 	dlogPlugins(`Install plugin: ${p}`)
 	var _ = require(`./plugins/${p}`)
-	bot.hears(_.regex, async (ctx) => {
-		dlogPlugins(`Runnig plugin: ${p}`)
-		_.plugin(ctx)
-	})
+	if (_.plugin) {
+		bot.hears(_.regex, async (ctx) => {
+			dlogPlugins(`Runnig cmd plugin: ${_.name}`)
+			_.plugin(ctx)
+		})
+	}
 	if (_.inline) {
 		inline.push(_)
 	}
@@ -61,7 +64,7 @@ bot.on('inline_query', (ctx) => {
 		if (match) {
 			isFound = true
 			ctx.match = match
-			dlogInline(`Runnig inline plugin: ${_}`)
+			dlogInline(`Runnig inline plugin: ${_.name}`)
 			_.inline(ctx)
 		}
 	})

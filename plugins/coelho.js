@@ -32,12 +32,12 @@ async function inline(ctx) {
 	})
 }
 
-const regex = /^\/coelho[s]*/i
-const about = 'Enviar uma gif de coelho'
-
 module.exports = {
+	name: 'Coelhos',
+	about: 'Enviar uma Gif de coelho.',
+	regex: /^\/coelho[s]*/i,
+	example: '/coelhos',
+	classification: ['Entretenimento'],
 	plugin,
-	inline,
-	about,
-	regex
+	inline
 }

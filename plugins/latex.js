@@ -12,11 +12,11 @@ function plugin(ctx) {
 	})
 }
 
-const regex = /^\/(latex\s|sticker[s]*\s)(.*)*/i
-const about = 'Enviar um sticker de acordo com o texto mencionado (Esse comando suporta o formato Latex).'
-
 module.exports = {
-	plugin,
-	about,
-	regex
+	name: 'Stickers',
+	about: 'Enviar um sticker com texto mencionado (Esse comando suporta o formato Latex).',
+	regex: /^\/(latex\s|sticker[s]*\s)(.*)*/i,
+	example: '/sticker RobôED',
+	classification: ['Ferramentas'],
+	plugin
 }

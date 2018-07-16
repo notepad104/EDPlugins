@@ -17,12 +17,12 @@ function inline(ctx) {
 	})
 }
 
-const about = 'Retorna um Pong :)'
-const regex = /^\/ping/i
-
 module.exports = {
+	name: 'Ping',
+	about: 'Retorna um Pong :)',
+	regex: /^\/ping/i,
+	example: '/ping',
+	classification: ['Entretenimento'],
 	plugin,
-	inline,
-	about,
-	regex
+	inline
 }

@@ -64,12 +64,12 @@ async function inline(ctx) {
 	})
 }
 
-const regex = /^\/gif[s\s]*(.+)*/i
-const about = 'Enviar um Gif relacionado com o assunto mencionado.'
-
 module.exports = {
+	name: 'Gifs',
+	about: 'Enviar uma Gif relacionado com o assunto mencionado.',
+	regex: /^\/gif[s\s]*(.+)*/i,
+	example: '/gif gatinhos',
+	classification: ['Entretenimento', 'Pesquisa'],
 	plugin,
-	inline,
-	about,
-	regex
+	inline
 }
