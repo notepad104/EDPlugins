@@ -23,7 +23,7 @@ async function base() {
 async function plugin(ctx) {
 	var post_select = await base()
 	var select = post_select[Math.floor((Math.random() * post_select.length) + 1)]
-	var output = `<b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
+	var output = `9⃣ <b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
 	return ctx.replyWithHTML(output)
 }
 
@@ -32,7 +32,7 @@ async function inline(ctx) {
 	var posts = await base()
 	var n = 0
 	posts.forEach(select => {
-		var output = `<b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
+		var output = `9⃣ <b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
 		n++
 		result.push({
 			type: 'article',

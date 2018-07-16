@@ -31,6 +31,7 @@ const plugins = [
 	//'dado',
 	//example'
 	'gif',
+	'github',
 	//'google'
 	'latex',
 	//'perguntas',
