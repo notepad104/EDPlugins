@@ -66,5 +66,11 @@ package-lock.json
 .gitlab*
 private*
 test*
+*.lua
+*.python
+*.cc
+*.mm
+*.h
+*.birl
 plugins/google.js
 plugins/fale.js
