@@ -27,6 +27,7 @@ bot.telegram.sendMessage('89198119',
 
 const plugins = [
 	'9gag',
+	'calculadora',
 	'coelho',
 	//'dado',
 	//example'
