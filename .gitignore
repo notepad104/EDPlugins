@@ -65,6 +65,6 @@ TODO.md
 package-lock.json
 .gitlab*
 private*
+test*
 plugins/google.js
-plugins/perguntas.js
-plugins/dado.js
+plugins/fale.js
