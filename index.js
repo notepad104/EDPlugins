@@ -2,7 +2,19 @@ const Telegraf = require('telegraf')
 const debug = require('debug')
 //const gscomplet = require('gsearch')
 
-const bot = new Telegraf(process.env.telegram_token)
+const telegrafOption = {}
+const webhookReply = process.env.webhook_reply
+if (webhookReply) {
+	telegrafOption.telegram = {webhookReply: webhookReply}
+}
+
+const bot = new Telegraf(process.env.telegram_token, telegrafOption)
+
+const isWebhook = process.env.webhook
+bot.telegram.deleteWebhook()
+if (isWebhook) {
+	bot.telegram.setWebhook(process.env.host, {})
+}
 
 const dlogBot = debug("bot")
 const dlogPlugins = debug("bot:plugins")
@@ -16,11 +28,13 @@ const dlogError = debug("bot:error")
 	});
 }*/
 
-//bot.telegram.deleteWebhook()
-
 dlogBot("Start bot")
 bot.telegram.sendMessage('89198119',
-	'*BOT INICIADO*\nLOVE NODEJS', {
+	`
+*BOT INICIADO*
+*Modo de recebimento*: ${isWebhook ? 'webhook' : 'polling'}
+*Mode de retorno*: ${webhookReply ? 'Resposta ao webhook': 'normal'}
+	`, {
 		parse_mode: "Markdown"
 	}
 )
@@ -29,16 +43,19 @@ const plugins = [
 	'9gag',
 	'calculadora',
 	'coelho',
-	//'dado',
-	//example'
+	'dado',
+	'echo',
+	'example',
 	'gif',
 	'github',
 	//'google'
 	'ip',
 	'latex',
-	//'perguntas',
+	'perguntas',
 	'ping',
-	'torrent',
+	'soteio',
+	'text',
+	//'torrent',
 	'xkcd'
 ]
 
@@ -90,4 +107,9 @@ bot.catch((err) => {
 	dlogError(`Oooops ${err}`)
 })
 
-bot.startPolling()
+if (isWebhook) {
+	//path, TLS options, port
+	bot.startWebhook(process.env.secret_path, null, process.env.port)
+} else {
+	bot.startPolling()
+}
