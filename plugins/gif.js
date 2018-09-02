@@ -53,7 +53,7 @@ async function inline(ctx) {
 		n++
 		result.push({
 			type: 'gif',
-			title: '...',
+			title: 'GIF',
 			id: `gifs${n}`,
 			gif_url: url,
 			thumb_url: url

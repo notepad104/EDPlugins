@@ -34,7 +34,7 @@
     "telegraf": "3.23.0"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=9"
   },
   "private": false
 }

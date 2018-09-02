@@ -72,5 +72,15 @@ test*
 *.mm
 *.h
 *.birl
+*.moon
+*.sh
+*.bat
+*.py
 plugins/google.js
 plugins/fale.js
+plugins/gato.js
+plugins/code.js
+plugins/dog.js
+plugins/reactions.js
+data/*
+doc/*

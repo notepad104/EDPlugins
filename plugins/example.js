@@ -1,15 +1,20 @@
+function base() {
+	return ':)'
+}
+
 function plugin(ctx) {
-	return ctx.reply(':)')
+	return ctx.reply(base())
 }
 
 function inline(ctx) {
+	var output = base()
 	return ctx.answerInlineQuery([
 		{
 			type: 'article',
-			title: ':)',
+			title: output,
 			id: 'smile',
 			input_message_content: {
-				message_text: ':)'
+				message_text: output
 			}
 		}
 	], {
