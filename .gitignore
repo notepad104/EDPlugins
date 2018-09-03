@@ -65,7 +65,7 @@ TODO.md
 package-lock.json
 .gitlab*
 private*
-test*
+test.js
 *.lua
 *.python
 *.cc
