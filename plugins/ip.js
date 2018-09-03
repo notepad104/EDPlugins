@@ -4,6 +4,10 @@ async function base(ip) {
 	var data = await request({
 		baseUrl: 'http://ip-api.com', //TODO: Check https
 		uri: `/json/${encodeURIComponent(ip.replace(/http[s]*:\/\//i, ''))}`
+		agent: false,
+		pool: {
+			maxSockets: 100
+		}
 	})
 	data = JSON.parse(data)
 	if (!data.lat) {
@@ -41,7 +45,7 @@ async function plugin(ctx) {
 	var info = await base(ctx.match[1])
 	ctx.replyWithMarkdown(info.output)
 	if (!info.error) {
-		//TODO: Venue: info.lat, info.lon, info.country
+		bot.telegram.sendVenue(chatId, info.lat, info.lon, info.country, info.output)
 	}
 	return
 }

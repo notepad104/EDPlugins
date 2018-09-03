@@ -8,6 +8,10 @@ async function base(ctx) {
 	var data = await request({
 		baseUrl: 'http://api.giphy.com',
 		uri: '/v1/gifs/search',
+		agent: false,
+		pool: {
+			maxSockets: 100
+		},
 		qs: {
 			api_key: process.env.giphy_token,
 			q: ctx.match[1]
@@ -20,6 +24,10 @@ async function base(ctx) {
 		var data = await request({
 			baseUrl: 'http://api.giphy.com',
 			uri: '/v1/gifs/search',
+			agent: false,
+			pool: {
+				maxSockets: 100
+			},
 			qs: {
 				api_key: process.env.giphy_token,
 				q: '404'

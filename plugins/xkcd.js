@@ -7,7 +7,11 @@ async function base(ctx) {
 	}
 	var data = await request({
 		baseUrl: 'http://xkcd.com/',
-		uri: `${id}/info.0.json`
+		uri: `${id}/info.0.json`,
+		agent: false,
+		pool: {
+			maxSockets: 100
+		}
 	})
 	data = JSON.parse(data)
 	return data

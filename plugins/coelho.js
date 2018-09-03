@@ -4,6 +4,10 @@ async function base() {
 	var data = await request({
 		baseUrl: 'https://api.bunnies.io',
 		uri: '/v2/loop/random/',
+		agent: false,
+		pool: {
+			maxSockets: 100
+		},
 		qs: {
 			media: 'gif'
 		}

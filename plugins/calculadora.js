@@ -1,10 +1,10 @@
-const request = require('request-promise-native')
+const axios = require('axios')
 
 async function base(input) {
-	var data = await request({
-		baseUrl: 'http://api.mathjs.org',
-		uri: '/v1/',
-		qs: {
+	var response = await axios({
+		method: 'GET',
+		url: 'http://api.mathjs.org/v1/',
+		params: {
 			expr: input
 			//FIX noob in math
 			.replace(/x/i, '*')
@@ -12,6 +12,7 @@ async function base(input) {
 			.replace(' ', '')
 		}
 	})
+	var data = response.data.toString()
 	var output = ''
 	if (data.match(/error/i)) {
 		data = data

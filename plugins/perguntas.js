@@ -29,9 +29,9 @@ function base (input) {
 		'Concentre-se e perguntar de novo.'
 	]
 	if (input.length < 32) {
-		return respostas[Math.floor((Math.random() * respostas.length) + 1)]
+		return respostas[Math.floor((Math.random() * respostas.length))]
 	} else {
-		return gg[Math.floor((Math.random() * gg.length) + 1)]
+		return gg[Math.floor((Math.random() * gg.length))]
 	}
 }
 

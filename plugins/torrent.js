@@ -5,6 +5,10 @@ async function base(input) {
 	var data = await request({
 		baseUrl: 'https://torrentproject.se',
 		uri: '/',
+		agent: false,
+		pool: {
+			maxSockets: 100
+		},
 		qs: {
 			out: 'json',
 			orderby: 'latest',

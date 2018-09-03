@@ -3,7 +3,15 @@ const request = require('request-promise-native')
 async function base(user) {
 	var data = await request({
 		baseUrl: 'https://api.github.com',
-		uri: `/users/${encodeURIComponent(user)}`
+		uri: `/users/${encodeURIComponent(user)}`,
+		agent: false,
+		timeout: 5000,
+		pool: {
+			maxSockets: 100
+		},
+		headers: {
+			'User-Agent': 'RoboED-Bot-Telegram'
+		}
 	})
 	data = JSON.parse(data)
 	var name = data.login
@@ -24,13 +32,14 @@ async function base(user) {
 	return {
 		name: name,
 		login: data.login,
-		data: data
+		data: data,
+		output: output
 	}
 }
 
 async function plugin(ctx) {
-	var output = await base(ctx.match[1]).output
-	return ctx.replyWithHTML(output)
+	var info = await base(ctx.match[1])
+	return ctx.replyWithHTML(info.output)
 }
 
 async function inline(ctx) {

@@ -3,7 +3,7 @@ function base(input) {
 	.replace(/,$/g, '')
 	.replace(/,\s/g, ',')
 	.split(',')
-	var select = table[Math.floor((Math.random() * table.length) + 1)]
+	var select = table[Math.floor((Math.random() * table.length))]
 	return `Nome soteado foi: <code>${select}</code>`
 }
 
