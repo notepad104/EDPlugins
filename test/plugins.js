@@ -7,7 +7,7 @@ console.log(process.env)
 async function sendData(text) {
 	var response = await axios({
 		method: 'POST',
-		url: 'http://localhost:3000/secret-path',
+		url: 'http://127.0.0.1:3000/secret-path',
 		headers: {
 			'content-type': 'application/json'
 		},
