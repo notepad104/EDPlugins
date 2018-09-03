@@ -48,7 +48,6 @@ describe('Plugins', function() {
 	})*/
 	it('/calc 7*1+5', async function() {
 		var r = await sendData('/calc 7*1+5')
-		console.log(r)
 		expect(r.text).to.be.a('string')
 		expect(r.text).to.contain('*Pelos meus calculos:* `7*1+5 = 12`')
 	})

@@ -4,7 +4,7 @@
   "description": "Plugins for RobôED in NodeJS.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Nice Test :)\"",
+    "test": "env-cmd test/.env mocha --exit",
     "clear-npm": "node-prune",
     "start": "env-cmd .env node index.js"
   },
@@ -32,6 +32,10 @@
     "request": "2.88.0",
     "request-promise-native": "1.0.5",
     "telegraf": "3.23.0"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "5.2.0"
   },
   "engines": {
     "node": ">=9"

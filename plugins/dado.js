@@ -54,7 +54,12 @@ function inline(ctx) {
 module.exports = {
 	name: 'Dados',
 	about: 'Enviar números aleatórios.',
-	regex: /\/girar (\d*)[d ](\d*)|\/girar (\d)|\/dado[s]* (\d*)[d ](\d*)|\/dado[s]* (\d)/i,
+	regex: [
+		/\/girar (\d*)[d ](\d*)/i,
+		/\/girar (\d)/i,
+		/\/dado[s]* (\d*)[d ](\d*)/i,
+		/\/dado[s]* (\d)/i
+	],
 	example: ['/dados 9d5', '/girar 5'],
 	classification: ['Entretenimento', 'Ferramentas'],
 	plugin,

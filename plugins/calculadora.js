@@ -2,7 +2,7 @@ const request = require('request-promise-native')
 
 async function base(input) {
 	var data = await request({
-		baseUrl: 'https://api.mathjs.org',
+		baseUrl: 'http://api.mathjs.org',
 		uri: '/v1/',
 		qs: {
 			expr: input
@@ -35,8 +35,8 @@ async function base(input) {
 
 async function plugin(ctx) {
 	//TODO: Add suport reply msg
-	var output = await base(ctx.match[1]).output
-	return ctx.replyWithMarkdown(output)
+	var output = await base(ctx.match[1])
+	return ctx.replyWithMarkdown(output.output)
 }
 
 async function inline(ctx) {

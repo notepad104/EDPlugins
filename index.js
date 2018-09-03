@@ -2,16 +2,16 @@ const Telegraf = require('telegraf')
 const debug = require('debug')
 //const gscomplet = require('gsearch')
 
-const telegrafOption = {}
-const webhookReply = process.env.webhook_reply
-if (webhookReply) {
-	telegrafOption.telegram = {webhookReply: webhookReply}
-}
+const webhookReply = process.env.webhook_reply == 'true' ? true : false
+const isWebhook = process.env.webhook == 'true' ? true : false
+const isTest = process.env.Test == 'true' ? true : false
 
+const telegrafOption = { telegram: { webhookReply: webhookReply } }
 const bot = new Telegraf(process.env.telegram_token, telegrafOption)
 
-const isWebhook = process.env.webhook
-bot.telegram.deleteWebhook()
+if (!isTest) {
+	bot.telegram.deleteWebhook()
+}
 if (isWebhook) {
 	bot.telegram.setWebhook(process.env.host, {})
 }
@@ -67,7 +67,7 @@ plugins.forEach(p => {
 	if (_.plugin) {
 		bot.hears(_.regex, async (ctx) => {
 			dlogPlugins(`Runnig cmd plugin: ${_.name}`)
-			_.plugin(ctx)
+			await _.plugin(ctx)
 		})
 	}
 	if (_.inline) {
@@ -75,10 +75,10 @@ plugins.forEach(p => {
 	}
 })
 
-bot.on('inline_query', (ctx) => {
+bot.on('inline_query', async (ctx) => {
 	var isFound = false
 	var text = '/' + ctx.update.inline_query.query
-	inline.forEach(_ => {
+	for (_ of inline) {
 		var regex = _.regex
 		regex.lastIndex = 0
 		var match = regex.exec(text || '')
@@ -86,9 +86,9 @@ bot.on('inline_query', (ctx) => {
 			isFound = true
 			ctx.match = match
 			dlogInline(`Runnig inline plugin: ${_.name}`)
-			_.inline(ctx)
+			await _.inline(ctx)
 		}
-	})
+	}
 	if (!isFound) {
 		ctx.answerInlineQuery([{
 			type: 'article',
