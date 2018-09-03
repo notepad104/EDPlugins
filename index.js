@@ -12,7 +12,7 @@ const bot = new Telegraf(process.env.telegram_token, telegrafOption)
 if (!isTest) {
 	bot.telegram.deleteWebhook()
 }
-if (isWebhook) {
+if (isWebhook && !isTest) {
 	bot.telegram.setWebhook(process.env.host, {})
 }
 
@@ -49,8 +49,9 @@ const plugins = [
 	'gif',
 	'github',
 	//'google'
-	'ip',
+	//'ip',
 	'latex',
+	'lmgtfy',
 	'perguntas',
 	'ping',
 	'soteio',
