@@ -4,6 +4,7 @@ node_js:
 install:
     - npm install --save-dev
 script:
+    - ip addr
     - npm version
     - node --version
     - npm run travis
