@@ -4,7 +4,7 @@ const debug = require('debug')
 
 const webhookReply = process.env.webhook_reply == 'true' ? true : false
 const isWebhook = process.env.webhook == 'true' ? true : false
-const isTest = process.env.Test == 'true' ? true : false
+const isTest = process.env.test == 'true' ? true : false
 
 const telegrafOption = { telegram: { webhookReply: webhookReply } }
 const bot = new Telegraf(process.env.telegram_token, telegrafOption)
@@ -29,13 +29,17 @@ const dlogError = debug("bot:error")
 }*/
 
 dlogBot("Start bot")
-bot.telegram.sendMessage('89198119',
-	`
+var startLog = `
 *BOT INICIADO*
 *Modo de recebimento*: ${isWebhook ? 'webhook' : 'polling'}
 *Mode de retorno*: ${webhookReply ? 'Resposta ao webhook': 'normal'}
-	`, {
-		parse_mode: "Markdown"
+`
+if (isTest && process.env.TRAVIS_JOB_NUMBER) {
+	startLog += `\n[Travis CI Job: #${process.env.TRAVIS_JOB_NUMBER}](https://travis-ci.org/SynkoDevelopers/EDPlugins/jobs/${process.env.TRAVIS_JOB_ID})`
+}
+bot.telegram.sendMessage(process.env.log_chat,
+	startLog, {
+		parse_mode: 'Markdown'
 	}
 )
 

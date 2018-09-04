@@ -10,4 +10,8 @@ before_script:
     - npm ls
 script:
     - npm run travis
+after_success:
+    - node scripts/travis.js succeeded
+after_failure:
+    - node scripts/travis.js failed
 sudo: true
