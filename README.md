@@ -1,15 +1,16 @@
-# EDPlugins [![Build Status](https://travis-ci.org/SynkoDevelopers/EDPlugins.svg?branch=master)](https://travis-ci.org/SynkoDevelopers/EDPlugins)
+# EDPlugins [![Build Status](https://travis-ci.org/SynkoDevelopers/EDPlugins.svg?branch=master)](https://travis-ci.org/SynkoDevelopers/EDPlugins) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12cf1e007a9943b09071136a9f150f86)](https://www.codacy.com/app/tiagodanin/EDPlugins?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SynkoDevelopers/EDPlugins&amp;utm_campaign=Badge_Grade) [![CodeFactor](https://www.codefactor.io/repository/github/synkodevelopers/edplugins/badge)](https://www.codefactor.io/repository/github/synkodevelopers/edplugins) [![Known Vulnerabilities](https://snyk.io/test/github/SynkoDevelopers/EDPlugins/badge.svg?targetFile=package.json)](https://snyk.io/test/github/SynkoDevelopers/EDPlugins?targetFile=package.json)
 
 Plugins for RobôED in NodeJS.
 
 ## Installation
 
 Install with npm and Node9:
+
 ```sh
 npm install
 ```
 
-and define environment variables in .env, example:
+Define environment variables in .env, example:
 
 ```
 telegram_token=ABCD:1234567890
