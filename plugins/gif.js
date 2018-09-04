@@ -18,10 +18,10 @@ async function base(ctx) {
 		}
 	})
 
-	post_select = []
+	var post_select = []
 	data = JSON.parse(data)
 	if (data.pagination.count == 0) {
-		var data = await request({
+		data = await request({
 			baseUrl: 'http://api.giphy.com',
 			uri: '/v1/gifs/search',
 			agent: false,
@@ -36,7 +36,7 @@ async function base(ctx) {
 		data = JSON.parse(data)
 	}
 
-	posts = data.data
+	var posts = data.data
 	posts.forEach(post => {
 		if (post.type == 'gif') {
 			post_select.push(post)

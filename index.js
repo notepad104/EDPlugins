@@ -79,7 +79,7 @@ plugins.forEach(p => {
 bot.on('inline_query', async (ctx) => {
 	var isFound = false
 	var text = '/' + ctx.update.inline_query.query
-	for (_ of inline) {
+	for (var _ of inline) {
 		var regex = _.regex
 		regex.lastIndex = 0
 		var match = regex.exec(text || '')

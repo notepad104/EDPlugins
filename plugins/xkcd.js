@@ -18,7 +18,7 @@ async function base(ctx) {
 }
 
 async function plugin(ctx) {
-	var data = await data(ctx)
+	var data = await base(ctx)
 	var output = `🌐 <b>${data.title}</b> (${data.num})\n📮 ${data.alt}\n<a href="${data.img}">‌</a>`
 	return ctx.replyWithHTML(output)
 }
