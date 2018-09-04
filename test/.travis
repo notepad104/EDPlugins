@@ -1,0 +1,7 @@
+DEBUG=*
+webhook=true
+webhook_reply=true
+host=http://localhost:3000/secret-path
+secret_path=/secret-path
+port=3000
+test=true

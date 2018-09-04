@@ -1,8 +1,12 @@
 const axios = require('axios')
 const expect = require('expect.js')
+const debug = require('debug')
 const bot = require('..')
 
-console.log(process.env)
+const dlogEnv = debug('bot:test:env')
+const dlogResponse = debug('bot:test:response')
+
+dlogEnv(process.env)
 
 async function sendData(text) {
 	var response = await axios({
@@ -35,6 +39,7 @@ async function sendData(text) {
 			}
 		},
 	})
+	dlogResponse(response)
 	return response.data
 }
 

@@ -7,7 +7,7 @@
     "start": "env-cmd .env node index.js",
     "test": "env-cmd test/.env mocha --exit --timeout 100000",
     "clear-npm": "node-prune",
-    "travis": "mocha --exit --timeout 10000000"
+    "travis": "env-cmd test/.travis mocha --exit --timeout 10000000"
   },
   "repository": {
     "type": "git",
