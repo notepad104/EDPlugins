@@ -19,6 +19,7 @@ if (isWebhook && !isTest) {
 const dlogBot = debug("bot")
 const dlogPlugins = debug("bot:plugins")
 const dlogInline = debug("bot:inline")
+const dlogCallback = debug("bot:callback")
 const dlogError = debug("bot:error")
 
 /*function autocomplent(query) {
@@ -52,6 +53,7 @@ const plugins = [
 	'example',
 	'gif',
 	'github',
+	'help',
 	//'google'
 	//'ip',
 	'latex',
@@ -64,19 +66,38 @@ const plugins = [
 	'xkcd'
 ]
 
-var inline = []
 
+var inline = []
+var callback = []
+
+bot.use((ctx, next) => {
+	if (ctx.update && ctx.update.message && ctx.update.message.text) {
+		if (ctx.update.message.text.startsWith('/start')) {
+			ctx.update.message.text = ctx.update.message.text.replace('start ', '').replace('-', ' ')
+		}
+	}
+	return next(ctx)
+})
+
+bot.context.plugins = []
 plugins.forEach(p => {
 	dlogPlugins(`Install plugin: ${p}`)
 	var _ = require(`./plugins/${p}`)
+	bot.context.plugins.push(_)
+
 	if (_.plugin) {
 		bot.hears(_.regex, async (ctx) => {
 			dlogPlugins(`Runnig cmd plugin: ${_.name}`)
 			await _.plugin(ctx)
 		})
 	}
+
 	if (_.inline) {
 		inline.push(_)
+	}
+
+	if (_.callback) {
+		callback.push(_)
 	}
 })
 
@@ -105,6 +126,19 @@ bot.on('inline_query', async (ctx) => {
 		}], {
 			cache_time: 0
 		})
+	}
+})
+
+bot.on('callback_query', async (ctx) => {
+	if (ctx.update && ctx.update.callback_query && ctx.update.callback_query.data) {
+		var data = ctx.update.callback_query.data
+		for (var _ of callback) {
+			if (data.startsWith(_.id)) {
+				ctx.match = [].concat(data, data.split(':'))
+				dlogCallback(`Runnig callback plugin: ${_.name}`)
+				await _.callback(ctx)
+			}
+		}
 	}
 })
 
