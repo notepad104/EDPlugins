@@ -58,6 +58,7 @@ async function inline(ctx) {
 }
 
 module.exports = {
+	id: 'calc',
 	name: 'Calculadora',
 	about: '', //TODO: Add about
 	regex: /^\/calc[uladora]*\s*(.+)/i,

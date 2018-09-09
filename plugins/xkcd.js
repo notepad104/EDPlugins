@@ -45,6 +45,7 @@ const regex = /^\/xkcd([ ](\d*))*/i
 const about = 'Enviar uma imagem do xkcd.'
 
 module.exports = {
+	id: 'xkcd',
 	name: 'XKCD',
 	about: 'Enviar uma imagem do xkcd.',
 	regex: /^\/xkcd([ ](\d*))*/i,

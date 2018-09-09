@@ -24,6 +24,7 @@ function inline(ctx) {
 }
 
 module.exports = {
+	id: 'lmgtfy',
 	name: 'Lmgtfy',
 	about: 'Guia para noobs que não sabem usar buscadores.',
 	regex: /^\/lmgtfy[s]*\s(.+)/i,

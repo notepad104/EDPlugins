@@ -30,6 +30,7 @@ function inline(ctx) {
 }
 
 module.exports = {
+	id: 'soteioname',
 	name: 'Soteio de Nome',
 	about: 'Soteia um nome de uma lista de nomes.',
 	regex: /^\/soteio[s]*\s(.+)/i,

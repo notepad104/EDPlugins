@@ -61,6 +61,7 @@ async function inline(ctx) {
 }
 
 module.exports = {
+	id: 'github',
 	name: 'GitHub',
 	about: 'Retona informações sobre um perfil do GitHub.',
 	regex: /^\/github\s*(.+)/i,

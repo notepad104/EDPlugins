@@ -72,6 +72,7 @@ async function inline(ctx) {
 }
 
 module.exports = {
+	id: 'torrent',
 	name: 'Torrents',
 	about: 'Busca de arquivos Torrents.',
 	regex: /^\/torrent[s]*\s(.+)/i,

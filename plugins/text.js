@@ -35,6 +35,7 @@ function inline(ctx) {
 }
 
 module.exports = {
+	id: 'textformat',
 	name: 'Texto Formate',
 	about: 'Diversos estilos de formatação de textos.',
 	regex: /^\/text[os]*\s(.+)/i,

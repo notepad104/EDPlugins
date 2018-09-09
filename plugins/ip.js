@@ -72,6 +72,7 @@ async function inline(ctx) {
 }
 
 module.exports = {
+	id: 'ip',
 	name: 'IP',
 	about: 'Retona informações sobre ip/site.',
 	regex: /^\/ip\s*(.+)/i,

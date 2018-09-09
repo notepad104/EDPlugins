@@ -18,6 +18,7 @@ function inline(ctx) {
 }
 
 module.exports = {
+	id: 'ping',
 	name: 'Ping',
 	about: 'Retorna um Pong :)',
 	regex: /^\/ping/i,

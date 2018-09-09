@@ -50,6 +50,7 @@ async function inline(ctx) {
 }
 
 module.exports = {
+	id: '9gag',
 	name: '9GAG',
 	about: 'Enviar imagens aleatórias do site 9GAG.com.',
 	regex: /^\/[9]*gag/i,

@@ -24,6 +24,7 @@ function inline(ctx) {
 }
 
 module.exports = {
+	id: 'echo',
 	name: 'Echo',
 	about: 'Repete o texto (Suportar Markdown).',
 	regex: /^\/(repet[eirs]*|echo[s]*)\s(.+)/i,

@@ -37,6 +37,7 @@ async function inline(ctx) {
 }
 
 module.exports = {
+	id: 'coelhos',
 	name: 'Coelhos',
 	about: 'Enviar uma Gif de coelho.',
 	regex: /^\/coelho[s]*/i,

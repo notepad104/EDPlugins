@@ -22,6 +22,13 @@ function inline(ctx) {
 	})
 }
 
+function callback(ctx) {
+	return ctx.answerCbQuery({
+		text: ':)'
+	})
+}
+
+const id = 'example' //No space or special char
 const name = 'Plugin de Exemplo'
 const about = 'Sobre esse plugin.'
 const classification = ['Example']
@@ -29,9 +36,11 @@ const regex = /^\/command-regex/i
 const example = '/command-regex' //or ['/command-regex', /Command-Regex]
 
 module.exports = {
+	id,
 	name,
 	plugin,
 	inline,
+	callback,
 	about,
 	classification,
 	regex,

@@ -52,6 +52,7 @@ function inline(ctx) {
 }
 
 module.exports = {
+	id: 'dado',
 	name: 'Dados',
 	about: 'Enviar números aleatórios.',
 	regex: [

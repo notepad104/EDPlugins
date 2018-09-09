@@ -58,6 +58,7 @@ function inline(ctx) {
 }
 
 module.exports = {
+	id: 'perguntas',
 	name: 'Perguntas',
 	about: 'Faça uma pergunta simples ao bot, para obter sua resposta.',
 	regex: /^\/pergunta[rs\s]*(.+)/i,
