@@ -56,10 +56,10 @@ module.exports = {
 	name: 'Dados',
 	about: 'Enviar números aleatórios.',
 	regex: [
-		/\/girar (\d*)[d ](\d*)/i,
-		/\/girar (\d)/i,
-		/\/dado[s]* (\d*)[d ](\d*)/i,
-		/\/dado[s]* (\d)/i
+		/^\/girar (\d*)[d ](\d*)/i,
+		/^\/girar (\d)/i,
+		/^\/dado[s]* (\d*)[d ](\d*)/i,
+		/^\/dado[s]* (\d)/i
 	],
 	example: ['/dados 9d5', '/girar 5'],
 	classification: ['Entretenimento', 'Ferramentas'],

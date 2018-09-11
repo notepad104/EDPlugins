@@ -56,7 +56,6 @@ async function inline(ctx) {
 	var posts = await base(ctx)
 	var n = 0
 	posts.forEach(select => {
-		console.log(select)
 		var url = select.images.original_mp4.mp4
 		n++
 		result.push({
@@ -76,7 +75,7 @@ module.exports = {
 	id: 'gifs',
 	name: 'Gifs',
 	about: 'Enviar uma Gif relacionado com o assunto mencionado.',
-	regex: /^\/gif[s\s]*(.+)*/i,
+	regex: /^\/gif[s\s]*(.+)/i,
 	example: '/gif gatinhos',
 	classification: ['Entretenimento', 'Pesquisa'],
 	plugin,

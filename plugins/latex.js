@@ -16,7 +16,7 @@ module.exports = {
 	id: 'latex',
 	name: 'Stickers',
 	about: 'Enviar um sticker com texto mencionado (Esse comando suporta o formato Latex).',
-	regex: /^\/(latex\s|sticker[s]*\s)(.*)*/i,
+	regex: /^\/(latex\s|sticker[s]*\s)(.*)/i,
 	example: '/sticker RobôED',
 	classification: ['Ferramentas'],
 	plugin

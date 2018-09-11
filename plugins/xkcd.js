@@ -41,14 +41,11 @@ async function inline(ctx) {
 	})
 }
 
-const regex = /^\/xkcd([ ](\d*))*/i
-const about = 'Enviar uma imagem do xkcd.'
-
 module.exports = {
 	id: 'xkcd',
 	name: 'XKCD',
 	about: 'Enviar uma imagem do xkcd.',
-	regex: /^\/xkcd([ ](\d*))*/i,
+	regex: /^\/xkcd([ ](\d*))/i,
 	example: ['/xkcd', '/xkcd 123'],
 	classification: ['Entretenimento', 'Pesquisa'],
 	plugin,

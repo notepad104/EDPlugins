@@ -1,10 +1,10 @@
 const lgag = require('9gag')
 
 async function base() {
-	var Scraper = lgag.Scraper;
-	var scraper = new Scraper(10, 'hot', 1);
+	const Scraper = lgag.Scraper;
+	const scraper = new Scraper(10, 'hot', 1);
 	const posts = await scraper.scrap();
-	post_select = []
+	var post_select = []
 	posts.forEach(post => {
 		if (post.nsfw == 0 && post.type == 'Image') {
 			/*
