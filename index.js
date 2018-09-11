@@ -2,12 +2,21 @@ const Telegraf = require('telegraf')
 const debug = require('debug')
 //const gscomplet = require('gsearch')
 
-const webhookReply = process.env.webhook_reply == 'true' ? true : false
+var webhookReply = process.env.webhook_reply == 'true' ? true : false
 const isWebhook = process.env.webhook == 'true' ? true : false
 const isTest = process.env.test == 'true' ? true : false
+const admins = process.env.admins
+const username = process.env.username
 
-const telegrafOption = { telegram: { webhookReply: webhookReply } }
+const telegrafOption = {
+	telegram: { webhookReply: webhookReply },
+	username: username
+}
 const bot = new Telegraf(process.env.telegram_token, telegrafOption)
+
+if (!isWebhook) {
+	webhookReply = false
+}
 
 if (!isTest) {
 	bot.telegram.deleteWebhook()
@@ -47,6 +56,7 @@ bot.telegram.sendMessage(process.env.log_chat,
 const plugins = [
 	'9gag',
 	'calculadora',
+	'callback',
 	'coelho',
 	'dado',
 	'echo',
@@ -73,16 +83,23 @@ var callback = []
 bot.use((ctx, next) => {
 	if (ctx.update && ctx.update.message && ctx.update.message.text) {
 		if (ctx.update.message.text.startsWith('/start')) {
-			ctx.update.message.text = ctx.update.message.text.replace('start ', '').replace('-', ' ')
+			ctx.update.message.text = ctx.update.message.text.replace('start ', '').replace(/-/g, ' ')
 		}
 	}
 	return next(ctx)
 })
 
 bot.context.plugins = []
+bot.context.isAdmin = (ctx) => {
+	if (admins.split(',').includes(ctx.from.id.toString())) {
+		return true
+	}
+	return false
+}
+
 plugins.forEach(p => {
-	dlogPlugins(`Install plugin: ${p}`)
 	var _ = require(`./plugins/${p}`)
+	dlogBot(`Install plugin: ${_.id}`)
 	bot.context.plugins.push(_)
 
 	if (_.plugin) {
