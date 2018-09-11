@@ -27,7 +27,7 @@
     "9gag": "2.0.0",
     "axios": "0.18.0",
     "bytelabel": "2.0.2",
-    "debug": "3.1.0",
+    "debug": "4.0.0",
     "env-cmd": "8.0.2",
     "gsearch": "1.0.1",
     "jformat": "1.0.4",
