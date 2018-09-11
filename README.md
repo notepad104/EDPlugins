@@ -18,12 +18,14 @@ telegram_token=ABCD:1234567890
 giphy_token=1234567890
 log_chat=1234567890
 DEBUG=bot*
+username=mybot
 webhook=true
 webhook_reply=true
 host=https://server.com/secret-path
 secret_path=/secret-path
 port=3000
 test=false
+admins=1234567890,0987654321
 ```
 
 Run the bot with the command:
@@ -41,11 +43,13 @@ telegram_token=1234567890
 giphy_token=1234567890
 log_chat=1234567890
 DEBUG=bot*
+username=mybot
 webhook=true
 webhook_reply=true
 host=https://localhost:3000/secret-path
 secret_path=/secret-path
 port=3000
+admins=1234567890,0987654321
 test=true
 ```
 
