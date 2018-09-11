@@ -12,6 +12,11 @@ function showClassifications(ctx) {
 			]
 		}
 	}
+	if (ctx.isAdmin(ctx)) {
+		extra.reply_markup.inline_keyboard.push([{
+			text: '💎 Admin/Bot', callback_data: 'help:c:Bot'
+		}])
+	}
 	if (ctx.updateType == 'callback_query') {
 		return ctx.editMessageText(text, extra)
 	} else if (ctx.chat.type == 'private') {
@@ -25,10 +30,11 @@ function showClassifications(ctx) {
 					[[
 						{
 							text: '🤖 Iniciar conversa.',
-							url: 'https://telegram.me/sidbetabot?start=help'
+							url: `https://telegram.me/${ctx.options.username}?start=help`
 						}
 					]]
-				}
+				},
+				disable_web_page_preview: true
 			})
 		})
 		.then(e => {
@@ -40,7 +46,7 @@ function showClassifications(ctx) {
 	}
 }
 
-function showInfoPlugin(_, n, isAdmin) {
+function showInfoPlugin(ctx, _, n, isAdmin) {
 	var output = ''
 	if (n != 0) {
 		output += `<b>${n}</b> - ${_.name}\n`
@@ -50,52 +56,49 @@ function showInfoPlugin(_, n, isAdmin) {
 	if (isAdmin) {
 		output += `<b>Id:</b> <code>${_.id}</code>\n`
 	}
-	output += `<b>Sobre:</b> ${_.about}\n\n`
-	//TODO: Add link of classification
-	output += `<b>Categoria(s):</b> ${_.classification.toString().replace(',', ', ')}\n`
+	output += `<b>Sobre:</b> ${_.about}\n`
 	if (_.example) {
-		output += `<b>Exemplo de uso:</b> <code>${_.example.toString().replace(',', ', ')}</code>\n`
+		output += `<b>Exemplo de uso:</b> ${_.example.toString().replace(/,/g, ', ')}\n`
 	}
+	output += '\n'
+	var classifications = []
+	for (classification of _.classification.sort()) {
+		classifications.push(`<a href="https://telegram.me/${ctx.options.username}?start=help-c_${classification}">${classification}</a>`)
+	}
+	output += `<b>Categoria(s):</b> ${classifications.toString().replace(/,/g, ', ')}\n`
 	output += `<b>Compatilibidade:</b> ${_.plugin? 'Modo de comando, ' : ''}${_.inline? 'Modo Inline' : ''}\n`
 	if (isAdmin) {
-		output += `<b>Regex:</b> <code>${_.regex.toString().replace(',', ', ')}</code>\n`
+		output += `<b>Regex:</b> <code>${_.regex.toString().replace(/,/g, ',\n')}</code>\n`
 	}
 	return output
 }
 
-function selectPlugins(_, classification) {
-	return _.classification.includes(classification)
-}
-
-function plugin(ctx) {
-	if (ctx.match[1] == 'help' || ctx.match[1] == 'ajuda') {
-		return showClassifications(ctx)
+function showPlugins(ctx) {
+	var text = '<b>Escolha um plugin!</b>'
+	var plugins = []
+	var classification = ''
+	if (ctx.updateType == 'message') {
+		classification = ctx.match[1].replace('c_', '')
+	} else {
+		classification = ctx.match[3]
 	}
-	return
-}
-
-function callback(ctx) {
-	if (ctx.match[2] == 'main') {
-		return showClassifications(ctx)
-	}
-	else if (ctx.match[2] == 'c' && ctx.match[3]) {
-		var text = '<b>Escolha um plugin!</b>'
-		var plugins = []
-		//TODO: Resumo simples de todos
-		for (var _ of ctx.plugins) {
-			if (selectPlugins(_, ctx.match[3])) {
-				if (ctx.match[4] && _.id == ctx.match[4]) {
-					text = showInfoPlugin(_, 0, true)
-					plugins.push([{text: `🔸 ${_.name}`, callback_data: `help:c:${ctx.match[3]}:${_.id}`}])
-				} else {
-					plugins.push([{text: `🔹 ${_.name}`, callback_data: `help:c:${ctx.match[3]}:${_.id}`}])
-				}
+	//TODO: Resumo simples de todos
+	for (var _ of ctx.plugins) {
+		if (selectPlugins(_, classification)) {
+			if (ctx.match[4] && _.id == ctx.match[4]) {
+				text = showInfoPlugin(ctx, _, 0, ctx.isAdmin(ctx))
+				plugins.push([{text: `🔸 ${_.name}`, callback_data: `callback:same`}])
+			} else {
+				plugins.push([{text: `🔹 ${_.name}`, callback_data: `help:c:${classification}:${_.id}`}])
 			}
 		}
+	}
 
-		//FIXME: Gambiarra .-.
+	//FIXME: Gambiarra .-.
+	var keyboard = []
+	if (3 < plugins.length) {
 		var pairCheck = false
-		var keyboard = plugins.sort().reduce((_, next) => {
+		keyboard = plugins.sort().reduce((_, next) => {
 			if (Array.isArray(_)) {
 				if (Array.isArray(_[0])) {
 					if (pairCheck) {
@@ -116,14 +119,54 @@ function callback(ctx) {
 		if (pairCheck) {
 			keyboard.push(pairCheck)
 		}
-		//END: Gambiarra
-		keyboard.push([{text: '🔙 Volta', callback_data: 'help:main'}])
+	} else {
+		keyboard = plugins
+	}
+	//END: Gambiarra
+	keyboard.push([{text: '🔙 Volta', callback_data: 'help:main'}])
+	if (ctx.updateType == 'message' && ctx.chat.type == 'private') {
+		return ctx.replyWithHTML(text, {
+			reply_markup: {
+				inline_keyboard: keyboard
+			},
+			disable_web_page_preview: true
+		})
+	} else {
 		return ctx.editMessageText(text, {
 			parse_mode: 'HTML',
 			reply_markup: {
 				inline_keyboard: keyboard
-			}
+			},
+			disable_web_page_preview: true
 		})
+	}
+}
+
+function selectPlugins(_, classification) {
+	return _.classification.includes(classification)
+}
+
+function plugin(ctx) {
+	const match = ctx.match[1]
+	if (match == 'help' || match == 'ajuda') {
+		return showClassifications(ctx)
+	} else if ([
+		'c_Entretenimento',
+		'c_Pesquisa',
+		'c_Ferramentas',
+		'c_Bot'
+	].includes(match)) {
+		return showPlugins(ctx)
+	}
+	return
+}
+
+function callback(ctx) {
+	if (ctx.match[2] == 'main') {
+		return showClassifications(ctx)
+	}
+	else if (ctx.match[2] == 'c' && ctx.match[3]) {
+		return showPlugins(ctx)
 	}
 	return
 }
@@ -145,6 +188,5 @@ module.exports = {
 	example: '/ajuda',
 	classification: ['Ferramentas'],
 	plugin,
-	inline,
 	callback
 }
