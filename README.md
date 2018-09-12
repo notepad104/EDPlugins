@@ -16,6 +16,7 @@ Define environment variables in .env, example:
 ```
 telegram_token=ABCD:1234567890
 giphy_token=1234567890
+github_token=1234567890
 log_chat=1234567890
 DEBUG=bot*
 username=mybot
@@ -41,6 +42,7 @@ Define environment variables in test/.env, example:
 ```
 telegram_token=1234567890
 giphy_token=1234567890
+github_token=1234567890
 log_chat=1234567890
 DEBUG=bot*
 username=mybot

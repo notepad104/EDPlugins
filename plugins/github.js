@@ -10,7 +10,8 @@ async function base(user) {
 			maxSockets: 100
 		},
 		headers: {
-			'User-Agent': 'RoboED-Bot-Telegram'
+			'User-Agent': 'RoboED-Bot-Telegram',
+			'Authorization': `token ${process.env.github_token}`
 		}
 	})
 	data = JSON.parse(data)
