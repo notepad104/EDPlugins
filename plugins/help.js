@@ -147,7 +147,7 @@ function selectPlugins(_, classification) {
 }
 
 function plugin(ctx) {
-	const match = ctx.match[1]
+	var match = ctx.match[1]
 	if (match == 'help' || match == 'ajuda') {
 		return showClassifications(ctx)
 	} else if ([

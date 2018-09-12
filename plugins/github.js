@@ -4,7 +4,7 @@ async function base(user) {
 	var response = await axios({
 		method: 'GET',
 		url: `https://api.github.com/users/${encodeURIComponent(user)}`,
-		headers: { //TODO: Check
+		headers: {
 			'User-Agent': 'RoboED-Bot-Telegram',
 			'Authorization': `token ${process.env.github_token}`
 		}

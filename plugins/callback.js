@@ -1,7 +1,7 @@
 function callback(ctx) {
 	if (ctx.match[2] == 'same') {
 		return ctx.answerCbQuery(
-		'Você já selecionou esta opção ‼️',
+			'Você já selecionou esta opção ‼️',
 			true
 		)
 	}

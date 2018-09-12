@@ -1,9 +1,9 @@
 var lgag = require('9gag')
 
 async function base() {
-	const Scraper = lgag.Scraper;
-	const scraper = new Scraper(10, 'hot', 1);
-	const posts = await scraper.scrap();
+	var Scraper = lgag.Scraper
+	var scraper = new Scraper(10, 'hot', 1)
+	var posts = await scraper.scrap()
 	var post_select = []
 	posts.forEach(post => {
 		if (post.nsfw == 0 && post.type == 'Image') {
@@ -31,7 +31,7 @@ async function inline(ctx) {
 	var result = []
 	var posts = await base()
 	var n = 0
-	for (selecto of posts) {
+	for (select of posts) {
 		var output = `9⃣ <b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
 		n++
 		result.push({

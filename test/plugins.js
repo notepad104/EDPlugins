@@ -46,9 +46,9 @@ async function sendData(text) {
 describe('Plugins', function() {
 	it('/9gag', async function() {
 		var r = await sendData('/9gag')
-		console.log(r)
 		expect(r.text).to.be.a('string')
-		expect(r.text).to.contain('*Echo*: test')
+		expect(r.text).to.contain('http://9gag.com/gag/')
+		expect(r.text).to.contain('👍')
 	})
 	it('/calc 7*1+5', async function() {
 		var r = await sendData('/calc 7*1+5')
@@ -99,12 +99,28 @@ describe('Plugins', function() {
 		expect(r.text).to.be.a('string')
 		expect(r.text).to.contain('*Echo*: test')
 	})*/
-	/*it('/ip 8.8.8.8', async function() {
-		var r = await sendData('/ip 8.8.8.8')
-		console.log(r)
+	it('/help', async function() {
+		var r = await sendData('/help')
 		expect(r.text).to.be.a('string')
-		expect(r.text).to.contain('*Echo*: test')
-	})*/
+		expect(r.text).to.contain('Temos um total de')
+	})
+	it('/help c_Ferramentas', async function() {
+		var r = await sendData('/help c_Ferramentas')
+		expect(r.text).to.be.a('string')
+		expect(r.text).to.contain('<b>Escolha um plugin!</b>')
+	})
+	it('/ip 8.8.8.8', async function() {
+		var r = await sendData('/ip 8.8.8.8')
+		expect(r.text).to.be.a('string')
+		expect(r.text).to.contain('*Provedor:* Google')
+		expect(r.text).to.contain('*Cidade:* Mountain View')
+		expect(r.text).to.contain('*Pais:* United States - US')
+	})
+	it('/ip hacknet.2018.br.top', async function() {
+		var r = await sendData('/ip hacknet.2018.br.top')
+		expect(r.text).to.be.a('string')
+		expect(r.text).to.contain('Este `hacknet.2018.br.top`, não é um dominio válido.')
+	})
 	it('/latex RoboED', async function() {
 		var r = await sendData('/latex RoboED')
 		expect(r).to.be.a('string')
