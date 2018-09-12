@@ -7,14 +7,16 @@ async function base() {
 	var post_select = []
 	posts.forEach(post => {
 		if (post.nsfw == 0 && post.type == 'Image') {
-			/*
-			post.url
-			post.content
-			post.upVoteCount
-			post.commentsCount
-			post.title
-			*/
-			post_select.push(post)
+			if (post.title && post.url) {
+				/*
+				post.url
+				post.content
+				post.upVoteCount
+				post.commentsCount
+				post.title
+				*/
+				post_select.push(post)
+			}
 		}
 	})
 	return post_select
