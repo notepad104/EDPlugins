@@ -31,7 +31,7 @@ const dlogCallback = debug("bot:callback")
 const dlogError = debug("bot:error")
 
 dlogBot("Start bot")
-const startLog = `
+var startLog = `
 *BOT INICIADO*
 *Modo de recebimento*: ${isWebhook ? 'webhook' : 'polling'}
 *Mode de retorno*: ${webhookReply ? 'Resposta ao webhook': 'normal'}
