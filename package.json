@@ -29,8 +29,8 @@
     "bytelabel": "2.0.2",
     "debug": "4.0.1",
     "env-cmd": "8.0.2",
-    "gsearch": "1.0.1",
     "jformat": "1.0.4",
+    "json-stringify-safe": "5.0.1",
     "telegraf": "3.23.1"
   },
   "devDependencies": {
