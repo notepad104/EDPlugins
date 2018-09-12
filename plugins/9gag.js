@@ -1,4 +1,4 @@
-const lgag = require('9gag')
+var lgag = require('9gag')
 
 async function base() {
 	const Scraper = lgag.Scraper;
@@ -31,7 +31,7 @@ async function inline(ctx) {
 	var result = []
 	var posts = await base()
 	var n = 0
-	posts.forEach(select => {
+	for (selecto of posts) {
 		var output = `9⃣ <b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
 		n++
 		result.push({
@@ -43,7 +43,7 @@ async function inline(ctx) {
 				parse_mode: 'HTML'
 			}
 		})
-	})
+	}
 	ctx.answerInlineQuery(result, {
 		cache_time: 0
 	})

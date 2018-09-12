@@ -1,18 +1,14 @@
-const request = require('request-promise-native')
+var axios = require('axios')
 
-async function base() {
-	var data = await request({
-		baseUrl: 'https://api.bunnies.io',
-		uri: '/v2/loop/random/',
-		agent: false,
-		pool: {
-			maxSockets: 100
-		},
-		qs: {
+async function base(input) {
+	var response = await axios({
+		method: 'GET',
+		url: 'https://api.bunnies.io/v2/loop/random/',
+		params: {
 			media: 'gif'
 		}
 	})
-	data = JSON.parse(data)
+	var data = response.data
 	return data.media.gif
 }
 

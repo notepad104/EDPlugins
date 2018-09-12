@@ -64,15 +64,15 @@ const plugins = [
 	'gif',
 	'github',
 	'help',
-	//'google'
-	//'ip',
+	//'google', TODO: Add Test
+	//'ip', TODO: InProgress
 	'latex',
 	'lmgtfy',
 	'perguntas',
 	'ping',
 	'soteio',
 	'text',
-	//'torrent',
+	//'torrent', TODO: Check
 	'xkcd'
 ]
 

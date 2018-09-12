@@ -1,25 +1,22 @@
-const request = require('request-promise-native')
+var axios = require('axios')
 
 async function base(ctx) {
 	var input = ctx.match[1]
 	if (input == undefined) {
 		input = 'random'
 	}
-	var data = await request({
-		baseUrl: 'http://api.giphy.com',
-		uri: '/v1/gifs/search',
-		agent: false,
-		pool: {
-			maxSockets: 100
-		},
-		qs: {
+
+	var response = await axios({
+		method: 'GET',
+		url: 'http://api.giphy.com/v1/gifs/search',
+		params: {
 			api_key: process.env.giphy_token,
 			q: ctx.match[1]
 		}
 	})
+	var data = response.data
 
 	var post_select = []
-	data = JSON.parse(data)
 	if (data.pagination.count == 0) {
 		data = await request({
 			baseUrl: 'http://api.giphy.com',

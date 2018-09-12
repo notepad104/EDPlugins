@@ -1,22 +1,18 @@
-const request = require('request-promise-native')
-const bytelabel = require('bytelabel')
+var bytelabel = require('bytelabel')
+var axios = require('axios')
 
 async function base(input) {
-	var data = await request({
-		baseUrl: 'https://torrentproject.se',
-		uri: '/',
-		agent: false,
-		pool: {
-			maxSockets: 100
-		},
-		qs: {
+	var response = await axios({
+		method: 'GET',
+		url: 'https://torrentproject.se/',
+		params: {
 			out: 'json',
 			orderby: 'latest',
 			num: 10,
 			s: input
 		}
 	})
-	data = JSON.parse(data)
+	var data = response.data
 	var results = []
 	if (data.total_found == '0') {
 		results.push({
@@ -55,7 +51,7 @@ async function plugin(ctx) {
 async function inline(ctx) {
 	var torrents = await base(ctx.match[1])
 	var results = []
-	torrents.forEach(torrent => {
+	for (torrent of torrents) {
 		results.push({
 			type: 'article',
 			title: `${torrent.title}`,
@@ -65,7 +61,7 @@ async function inline(ctx) {
 				parse_mode: 'HTML'
 			}
 		})
-	})
+	}
 	ctx.answerInlineQuery(results, {
 		cache_time: 0
 	})

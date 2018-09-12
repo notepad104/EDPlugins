@@ -1,19 +1,17 @@
-const request = require('request-promise-native')
+var axios = require('axios')
 
 async function base(ctx) {
 	var id = ctx.match[2]
 	if (id == undefined) {
 		id = Math.floor((Math.random() * 1999) + 1)
 	}
-	var data = await request({
-		baseUrl: 'http://xkcd.com/',
-		uri: `${id}/info.0.json`,
-		agent: false,
-		pool: {
-			maxSockets: 100
+	var response = await axios({
+		method: 'GET',
+		url: `http://xkcd.com/${id}/info.0.json`,
+		params: {
 		}
 	})
-	data = JSON.parse(data)
+	var data = response.data
 	return data
 }
 

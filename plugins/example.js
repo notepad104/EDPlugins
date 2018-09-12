@@ -28,12 +28,12 @@ function callback(ctx) {
 	})
 }
 
-const id = 'example' //No space or special char
-const name = 'Plugin de Exemplo'
-const about = 'Sobre esse plugin.'
-const classification = ['Example']
-const regex = /^\/command-regex/i
-const example = '/command-regex' //or ['/command-regex', /Command-Regex]
+var id = 'example' //No space or special char
+var name = 'Plugin de Exemplo'
+var about = 'Sobre esse plugin.'
+var classification = ['Example']
+var regex = /^\/command-regex/i
+var example = '/command-regex' //or ['/command-regex', /Command-Regex]
 
 module.exports = {
 	id,

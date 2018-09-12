@@ -1,4 +1,4 @@
-const axios = require('axios')
+var axios = require('axios')
 
 async function base(input) {
 	var response = await axios({

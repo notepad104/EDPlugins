@@ -44,12 +44,12 @@ async function sendData(text) {
 }
 
 describe('Plugins', function() {
-	/*it('/9gag', async function() {
+	it('/9gag', async function() {
 		var r = await sendData('/9gag')
 		console.log(r)
 		expect(r.text).to.be.a('string')
 		expect(r.text).to.contain('*Echo*: test')
-	})*/
+	})
 	it('/calc 7*1+5', async function() {
 		var r = await sendData('/calc 7*1+5')
 		expect(r.text).to.be.a('string')
@@ -93,6 +93,12 @@ describe('Plugins', function() {
 		expect(r.text).to.contain('https://github.com/TiagoDanin')
 		expect(r.text).to.contain('\n🌐 <a href="https://TiagoDanin.github.io/">Blog</a>\n')
 	})
+	/*it('/google tiagodanin', async function() {
+		var r = await sendData('/google tiagodanin')
+		console.log(r)
+		expect(r.text).to.be.a('string')
+		expect(r.text).to.contain('*Echo*: test')
+	})*/
 	/*it('/ip 8.8.8.8', async function() {
 		var r = await sendData('/ip 8.8.8.8')
 		console.log(r)

@@ -1,15 +1,15 @@
-const request = require('request-promise-native')
+var axios = require('axios')
 
 async function base(ip) {
-	var data = await request({
-		baseUrl: 'http://ip-api.com', //TODO: Check https
-		uri: `/json/${encodeURIComponent(ip.replace(/http[s]*:\/\//i, ''))}`
-		agent: false,
-		pool: {
-			maxSockets: 100
+	var baseUrl = ''http://ip-api.com''
+	var response = await axios({
+		method: 'GET',
+		url: `${baseUrl}/json/${encodeURIComponent(ip.replace(/http[s]*:\/\//i, ''))}`,
+		params: {
+			media: 'gif'
 		}
 	})
-	data = JSON.parse(data)
+	var data = response.data
 	if (!data.lat) {
 		var error = `Este \`${ip}\`, não é um dominio válido.\n`
 		error += 'Por favor, informe um dominio válido para que eu possa está enviando as informaçoes sobre o mesmo.'

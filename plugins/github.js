@@ -1,20 +1,15 @@
-const request = require('request-promise-native')
+var axios = require('axios')
 
 async function base(user) {
-	var data = await request({
-		baseUrl: 'https://api.github.com',
-		uri: `/users/${encodeURIComponent(user)}`,
-		agent: false,
-		timeout: 5000,
-		pool: {
-			maxSockets: 100
-		},
-		headers: {
+	var response = await axios({
+		method: 'GET',
+		url: `https://api.github.com/users/${encodeURIComponent(user)}`,
+		headers: { //TODO: Check
 			'User-Agent': 'RoboED-Bot-Telegram',
 			'Authorization': `token ${process.env.github_token}`
 		}
 	})
-	data = JSON.parse(data)
+	var data = response.data
 	var name = data.login
 	if (data.name) {
 		name = data.name
