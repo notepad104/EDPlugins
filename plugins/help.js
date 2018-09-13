@@ -1,3 +1,6 @@
+function selectPlugins(_, classification) {
+	return _.classification.includes(classification)
+}
 function showClassifications(ctx) {
 	var text = `Temos um total de *${ctx.plugins.length}* plugins ativados.\n`
 	text += 'Toque em um botão para ver os *comandos relacionados*'
@@ -62,7 +65,7 @@ function showInfoPlugin(ctx, _, n, isAdmin) {
 	}
 	output += '\n'
 	var classifications = []
-	for (classification of _.classification.sort()) {
+	for (var classification of _.classification.sort()) {
 		classifications.push(`<a href="https://telegram.me/${ctx.options.username}?start=help-c_${classification}">${classification}</a>`)
 	}
 	output += `<b>Categoria(s):</b> ${classifications.toString().replace(/,/g, ', ')}\n`
@@ -140,10 +143,6 @@ function showPlugins(ctx) {
 			disable_web_page_preview: true
 		})
 	}
-}
-
-function selectPlugins(_, classification) {
-	return _.classification.includes(classification)
 }
 
 function plugin(ctx) {

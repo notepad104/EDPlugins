@@ -95,9 +95,8 @@ describe('Plugins', function() {
 	})
 	/*it('/google tiagodanin', async function() {
 		var r = await sendData('/google tiagodanin')
-		console.log(r)
 		expect(r.text).to.be.a('string')
-		expect(r.text).to.contain('*Echo*: test')
+		expect(r.text).to.contain('-> <a href="https://TiagoDanin.github.io/">Tiago Danin</a>')
 	})*/
 	it('/help', async function() {
 		var r = await sendData('/help')

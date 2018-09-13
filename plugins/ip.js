@@ -56,11 +56,11 @@ async function inline(ctx) {
 	var input = ctx.match[1]
 	var info = await base(input)
 	var results = []
-	if (!info.error) {
+	if (info.error) {
 		results.push({
 			type: 'article',
 			title: `Não é um dominio válido: ${input}`,
-			id: `ip:${info.output.lenght()}`,
+			id: `ip:${info.output.lenght}`,
 			input_message_content: {
 				message_text: info.output,
 				parse_mode: 'Markdown'
@@ -70,7 +70,7 @@ async function inline(ctx) {
 		results.push({
 			type: 'article',
 			title: `Info do IP: ${input}`,
-			id: `ip:${info.output.lenght()}`,
+			id: `ip:${info.output.lenght}`,
 			input_message_content: {
 				message_text: info.output,
 				parse_mode: 'Markdown'

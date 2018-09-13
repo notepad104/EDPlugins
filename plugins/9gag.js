@@ -33,7 +33,7 @@ async function inline(ctx) {
 	var result = []
 	var posts = await base()
 	var n = 0
-	for (select of posts) {
+	for (var select of posts) {
 		var output = `9⃣ <b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
 		n++
 		result.push({

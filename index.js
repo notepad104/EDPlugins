@@ -179,7 +179,11 @@ plugins.forEach(p => {
 	if (_.plugin) {
 		bot.hears(_.regex, async (ctx) => {
 			dlogPlugins(`Runnig cmd plugin: ${_.name}`)
-			await _.plugin(ctx).catch((e) => processError(e, ctx, _))
+			await _.plugin(ctx).catch((e) => {
+				processError(e, ctx, _).catch(err => {
+					dlogError(`OH! ${e}, ${err}`)
+				})
+			})
 		})
 	}
 
@@ -194,16 +198,32 @@ plugins.forEach(p => {
 
 bot.on('inline_query', async (ctx) => {
 	var isFound = false
-	var text = '/' + ctx.update.inline_query.query
+	var text = '/' + ctx.update.inline_query.query.replace(/^\//, '')
 	for (var _ of inline) {
 		var regex = _.regex
-		regex.lastIndex = 0
-		var match = regex.exec(text || '')
+		var match = false
+		if (Array.isArray(regex)) {
+			var check = false
+			for (var reg of regex) {
+				regex.lastIndex = 0
+				check = reg.exec(text || '')
+				if (check) {
+					match = check
+				}
+			}
+		} else {
+			regex.lastIndex = 0
+			match = regex.exec(text || '')
+		}
 		if (match) {
 			isFound = true
 			ctx.match = match
 			dlogInline(`Runnig inline plugin: ${_.name}`)
-			await _.inline(ctx).catch((e) => processError(e, ctx, _))
+			await _.inline(ctx).catch((e) => {
+				processError(e, ctx, _).catch(err => {
+					dlogError(`OH! ${e}, ${err}`)
+				})
+			})
 		}
 	}
 	if (!isFound) {
@@ -227,14 +247,20 @@ bot.on('callback_query', async (ctx) => {
 			if (data.startsWith(_.id)) {
 				ctx.match = [].concat(data, data.split(':'))
 				dlogCallback(`Runnig callback plugin: ${_.name}`)
-				await _.callback(ctx).catch((e) => processError(e, ctx, _))
+				await _.callback(ctx).catch((e) => {
+					processError(e, ctx, _).catch(err => {
+						dlogError(`OH! ${e}, ${err}`)
+					})
+				})
 			}
 		}
 	}
 })
 
-bot.catch((err) => {
-	dlogError(`Oooops ${err}`)
+bot.catch((e) => {
+	processError(e, false, false).catch(err => {
+		dlogError(`OH! ${e}, ${err}`)
+	})
 })
 
 if (isWebhook) {

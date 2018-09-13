@@ -58,7 +58,7 @@ async function inline(ctx) {
 }
 
 module.exports = {
-	id: 'google'
+	id: 'google',
 	name: 'Google',
 	about: 'Busca de sites no Google.',
 	regex: /^\/(g[o]*gle|pesquisa[sr]*)\s(.+)/i,

@@ -1,36 +1,29 @@
 var axios = require('axios')
 
+async function sendRequest(input) {
+	var response = await axios({
+		method: 'GET',
+		url: 'http://api.giphy.com/v1/gifs/search',
+		params: {
+			api_key: process.env.giphy_token,
+			q: input
+		}
+	})
+	var data = response.data
+	return data
+}
+
 async function base(ctx) {
 	var input = ctx.match[1]
 	if (input == undefined) {
 		input = 'random'
 	}
 
-	var response = await axios({
-		method: 'GET',
-		url: 'http://api.giphy.com/v1/gifs/search',
-		params: {
-			api_key: process.env.giphy_token,
-			q: ctx.match[1]
-		}
-	})
-	var data = response.data
+	var data = await sendRequest(input)
 
 	var post_select = []
 	if (data.pagination.count == 0) {
-		data = await request({
-			baseUrl: 'http://api.giphy.com',
-			uri: '/v1/gifs/search',
-			agent: false,
-			pool: {
-				maxSockets: 100
-			},
-			qs: {
-				api_key: process.env.giphy_token,
-				q: '404'
-			}
-		})
-		data = JSON.parse(data)
+		data = await sendRequest('404')
 	}
 
 	var posts = data.data
@@ -52,7 +45,7 @@ async function inline(ctx) {
 	var result = []
 	var posts = await base(ctx)
 	var n = 0
-	posts.forEach(select => {
+	for (var select of posts) {
 		var url = select.images.original_mp4.mp4
 		n++
 		result.push({
@@ -62,7 +55,7 @@ async function inline(ctx) {
 			gif_url: url,
 			thumb_url: url
 		})
-	})
+	}
 	ctx.answerInlineQuery(result, {
 		cache_time: 0
 	})

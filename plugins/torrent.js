@@ -51,7 +51,7 @@ async function plugin(ctx) {
 async function inline(ctx) {
 	var torrents = await base(ctx.match[1])
 	var results = []
-	for (torrent of torrents) {
+	for (var torrent of torrents) {
 		results.push({
 			type: 'article',
 			title: `${torrent.title}`,
