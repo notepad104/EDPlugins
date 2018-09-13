@@ -27,7 +27,7 @@ async function plugin(ctx) {
 		limit = 8
 	}
 	var foundN = 0
-	for (res of results) {
+	for (var res of results) {
 		if (foundN < limit) {
 			foundN += ''
 			output += res.output
@@ -40,7 +40,7 @@ async function inline(ctx) {
 	var google = await base(ctx.match[2])
 	var results = []
 	var n = 0
-	for (result of google) {
+	for (var result of google) {
 		n++
 		results.push({
 			type: 'article',

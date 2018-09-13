@@ -1,6 +1,9 @@
+var similarity = require('similarity')
+
 function selectPlugins(_, classification) {
 	return _.classification.includes(classification)
 }
+
 function showClassifications(ctx) {
 	var text = `Temos um total de *${ctx.plugins.length}* plugins ativados.\n`
 	text += 'Toque em um botão para ver os *comandos relacionados*'
@@ -49,7 +52,8 @@ function showClassifications(ctx) {
 	}
 }
 
-function showInfoPlugin(ctx, _, n, isAdmin) {
+function showInfoPlugin(ctx, _, n) {
+	var isAdmin = ctx.isAdmin(ctx)
 	var output = ''
 	if (n != 0) {
 		output += `<b>${n}</b> - ${_.name}\n`
@@ -89,7 +93,7 @@ function showPlugins(ctx) {
 	for (var _ of ctx.plugins) {
 		if (selectPlugins(_, classification)) {
 			if (ctx.match[4] && _.id == ctx.match[4]) {
-				text = showInfoPlugin(ctx, _, 0, ctx.isAdmin(ctx))
+				text = showInfoPlugin(ctx, _, 0)
 				plugins.push([{text: `🔸 ${_.name}`, callback_data: `callback:same`}])
 			} else {
 				plugins.push([{text: `🔹 ${_.name}`, callback_data: `help:c:${classification}:${_.id}`}])
@@ -156,6 +160,8 @@ function plugin(ctx) {
 		'c_Bot'
 	].includes(match)) {
 		return showPlugins(ctx)
+	} else {
+		return showClassifications(ctx)
 	}
 	return
 }
@@ -163,15 +169,59 @@ function plugin(ctx) {
 function callback(ctx) {
 	if (ctx.match[2] == 'main') {
 		return showClassifications(ctx)
-	}
-	else if (ctx.match[2] == 'c' && ctx.match[3]) {
+	} else if (ctx.match[2] == 'c' && ctx.match[3]) {
 		return showPlugins(ctx)
 	}
 	return
 }
 
 function inline(ctx) {
-	return
+	var results = []
+	var input = ctx.match[1]
+	var limit = 16
+	if (input == 'help' || input == 'ajuda') {
+		results.push({
+			type: 'article',
+			title: 'Escrevar o nome do plugin!',
+			id: 'help:start',
+			input_message_content: {
+				message_text: 'Sem resultados! Escrevar o nome do plugin!'
+			}
+		})
+	} else {
+		for (var _ of ctx.plugins.sort((a, b) => {
+			var indexA = a.name
+			var indexB = b.name
+			if (similarity(indexA, input) < similarity(indexB, input)) { return 1 }
+			if (similarity(indexA, input) > similarity(indexB, input)) { return -1  }
+			return 0
+		})) {
+			if (results.length < limit && !selectPlugins(_, 'Bot')) {
+				results.push({
+					type: 'article',
+					title: `${_.name}`,
+					id: `help:id:${_.id}`,
+					input_message_content: {
+						message_text: showInfoPlugin(ctx, _, 0),
+						parse_mode: 'HTML'
+					}
+				})
+			}
+		}
+	}
+	if (results.length == 0) {
+		results.push({
+			type: 'article',
+			title: 'Sem resultados!',
+			id: 'help:start',
+			input_message_content: {
+				message_text: 'Não achei nenhum plugin com esse nome!'
+			}
+		})
+	}
+	ctx.answerInlineQuery(results, {
+		cache_time: 0
+	})
 }
 
 module.exports = {
@@ -181,11 +231,12 @@ module.exports = {
 	regex: [
 		/^\/ajuda[s]*\s(.+)/i,
 		/^\/help\s(.+)/i,
-		/^\/(ajuda)[s]*/i,
-		/^\/(help)/i,
+		/^\/(ajuda)[s]*$/i,
+		/^\/(help)$/i,
 	],
 	example: '/ajuda',
 	classification: ['Ferramentas'],
 	plugin,
+	inline,
 	callback
 }

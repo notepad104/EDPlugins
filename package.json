@@ -31,6 +31,7 @@
     "env-cmd": "8.0.2",
     "jformat": "1.0.4",
     "json-stringify-safe": "5.0.1",
+    "similarity": "1.1.1",
     "telegraf": "3.23.1"
   },
   "devDependencies": {

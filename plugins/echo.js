@@ -8,7 +8,7 @@ function plugin(ctx) {
 
 function inline(ctx) {
 	var output = base(ctx.match[2])
-	ctx.answerInlineQuery([
+	return ctx.answerInlineQuery([
 		{
 			type: 'article',
 			title: 'Eu vou dizer isso!',
