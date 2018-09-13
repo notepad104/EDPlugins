@@ -4,7 +4,7 @@ const stringify = require('json-stringify-safe')
 
 var webhookReply = process.env.webhook_reply == 'true' ? true : false
 const isWebhook = process.env.webhook == 'true' ? true : false
-const isTest = process.env.test == 'true' ? true : false
+const runMode = process.env.run_mode
 const admins = process.env.admins
 const username = process.env.username
 
@@ -17,10 +17,10 @@ const bot = new Telegraf(process.env.telegram_token, telegrafOption)
 if (!isWebhook) {
 	webhookReply = false
 }
-if (!isTest) {
+if (runMode == 'dev') {
 	bot.telegram.deleteWebhook()
 }
-if (isWebhook && !isTest) {
+if (isWebhook && runMode != 'test') {
 	bot.telegram.setWebhook(process.env.host, {})
 }
 
@@ -36,7 +36,7 @@ var startLog = `
 *Modo de recebimento*: ${isWebhook ? 'webhook' : 'polling'}
 *Mode de retorno*: ${webhookReply ? 'Resposta ao webhook': 'normal'}
 `
-if (isTest && process.env.TRAVIS_JOB_NUMBER) {
+if (runMode == 'test' && process.env.TRAVIS_JOB_NUMBER) {
 	startLog += `\n[Travis CI Job: #${process.env.TRAVIS_JOB_NUMBER}](https://travis-ci.org/SynkoDevelopers/EDPlugins/jobs/${process.env.TRAVIS_JOB_ID})`
 }
 bot.telegram.sendMessage(process.env.log_chat,
@@ -45,7 +45,7 @@ bot.telegram.sendMessage(process.env.log_chat,
 	}
 )
 
-const plugins = [
+var plugins = [
 	'9gag',
 	'calculadora',
 	'callback',
@@ -56,7 +56,6 @@ const plugins = [
 	'gif',
 	'github',
 	'help',
-	//'google', //TODO: Add Test
 	'ip',
 	'latex',
 	'lmgtfy',
@@ -67,6 +66,10 @@ const plugins = [
 	//'torrent', //TODO: Check
 	'xkcd'
 ]
+
+if (runMode == 'stable') {
+	plugins.push('google')
+}
 
 function processError(error, ctx, plugin) {
 	var fulllog = []

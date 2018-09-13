@@ -25,7 +25,7 @@ webhook_reply=true
 host=https://server.com/secret-path
 secret_path=/secret-path
 port=3000
-test=false
+run_mode=dev
 admins=1234567890,0987654321
 ```
 
@@ -52,7 +52,7 @@ host=https://localhost:3000/secret-path
 secret_path=/secret-path
 port=3000
 admins=1234567890,0987654321
-test=true
+run_mode=test
 ```
 
 Run test with the command:
