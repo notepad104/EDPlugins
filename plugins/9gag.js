@@ -24,7 +24,7 @@ async function base() {
 
 async function plugin(ctx) {
 	var post_select = await base()
-	var select = post_select[Math.floor((Math.random() * post_select.length) + 1)]
+	var select = post_select[Math.floor((Math.random() * post_select.length))]
 	var output = `9⃣ <b>${select.title}</b>\n💬 ${select.commentsCount} 👍 ${select.upVoteCount}\n${select.url}`
 	return ctx.replyWithHTML(output)
 }
