@@ -272,3 +272,5 @@ if (isWebhook) {
 } else {
 	bot.startPolling()
 }
+
+module.exports = bot
