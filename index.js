@@ -1,4 +1,5 @@
 const Telegraf = require('telegraf')
+const telegrafStart = require('telegraf-start-parts')
 const debug = require('debug')
 const stringify = require('json-stringify-safe')
 
@@ -154,14 +155,7 @@ Entre no Canal @RoboED para ficar por dentro das atualizações do nosso querido
 var inline = []
 var callback = []
 
-bot.use((ctx, next) => {
-	if (ctx.update && ctx.update.message && ctx.update.message.text) {
-		if (ctx.update.message.text.startsWith('/start')) {
-			ctx.update.message.text = ctx.update.message.text.replace('start ', '').replace(/-/g, ' ')
-		}
-	}
-	return next(ctx)
-})
+bot.use((ctx, next) => telegrafStart(ctx, next))
 
 bot.context.plugins = []
 bot.context.isAdmin = (ctx) => {
