@@ -33,7 +33,8 @@
     "json-stringify-safe": "5.0.1",
     "similarity": "1.1.1",
     "telegraf": "3.24.0",
-    "telegraf-start-parts": "^1.0.0"
+    "telegraf-start-parts": "1.0.0",
+    "telegraf-test": "1.0.0"
   },
   "devDependencies": {
     "expect.js": "0.3.1",
