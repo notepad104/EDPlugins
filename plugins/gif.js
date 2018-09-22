@@ -37,7 +37,7 @@ async function base(ctx) {
 
 async function plugin(ctx) {
 	var post_select = await base(ctx)
-	var select = post_select[Math.floor((Math.random() * post_select.length) + 1)]
+	var select = post_select[Math.floor((Math.random() * post_select.length))]
 	return ctx.replyWithDocument(select.images.original_mp4.mp4)
 }
 
