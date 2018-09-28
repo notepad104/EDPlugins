@@ -72,6 +72,8 @@ npm run test
 - [json-stringify-safe](https://ghub.io/json-stringify-safe): Like JSON.stringify, but doesn&#39;t blow up on circular refs.
 - [similarity](https://ghub.io/similarity): How similar are these two strings?
 - [telegraf](https://ghub.io/telegraf): 📡 Modern Telegram bot framework
+- [telegraf-start-parts](https://ghub.io/telegraf-start-parts): Command /start parameters parser middleware for Telegraf
+- [telegraf-test](https://ghub.io/telegraf-test): Telegraf Test - Simple Test ToolKit of Telegram Bots
 
 ## Dev Dependencies
 
