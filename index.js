@@ -10,7 +10,9 @@ const admins = process.env.admins
 const username = process.env.username
 
 const telegrafOption = {
-	telegram: { webhookReply: webhookReply },
+	telegram: {
+		webhookReply: webhookReply
+	},
 	username: username
 }
 const bot = new Telegraf(process.env.telegram_token, telegrafOption)
@@ -33,7 +35,9 @@ const dlogError = debug("bot:error")
 
 dlogBot("Start bot")
 var startLog = `
+#Start
 *BOT INICIADO*
+*Username:* @${username}
 *Modo de recebimento*: ${isWebhook ? 'webhook' : 'polling'}
 *Mode de retorno*: ${webhookReply ? 'Resposta ao webhook': 'normal'}
 `
@@ -51,7 +55,10 @@ var plugins = [
 	'calculadora',
 	'callback',
 	'coelho',
+	'commits',
 	'dado',
+	'doge',
+	'download',
 	'echo',
 	'example',
 	'gif',
@@ -64,7 +71,7 @@ var plugins = [
 	'ping',
 	'soteio',
 	'text',
-	//'torrent', //TODO: Check
+	//'torrent', //TODO: API OFF
 	'xkcd'
 ]
 
@@ -103,14 +110,23 @@ Entre no Canal @RoboED para ficar por dentro das atualizações do nosso querido
 	}
 
 	if (error) {
-		fulllog.push({type: 'error', data: error})
+		fulllog.push({
+			type: 'error',
+			data: error
+		})
 		dlogError(`Oooops ${error}`)
 	}
 	if (ctx) {
-		fulllog.push({type: 'ctx', data: ctx})
+		fulllog.push({
+			type: 'ctx',
+			data: ctx
+		})
 	}
 	if (plugin) {
-		fulllog.push({type: 'plugin', data: plugin})
+		fulllog.push({
+			type: 'plugin',
+			data: plugin
+		})
 	}
 
 	var clearUser = (user) => JSON.stringify(user).replace(/[{"}]/g, '').replace(/,/g, '\n').replace(/:/g, ': ')
@@ -129,12 +145,13 @@ Entre no Canal @RoboED para ficar por dentro das atualizações do nosso querido
 		text += `\nCHAT ~>\n${clearUser(ctx.chat)}`
 	}
 
-	bot.telegram.sendMessage(process.env.log_chat, text.substring(0,4000))
+	bot.telegram.sendMessage(process.env.log_chat, text.substring(0, 4000))
 
 	var jsonData = stringify(fulllog)
 	var remove = (name) => {
 		jsonData = jsonData.replace(new RegExp(name, 'gi'), 'OPS_SECRET')
 	}
+
 	[
 		process.env.telegram_token,
 		process.env.giphy_token,
@@ -143,6 +160,7 @@ Entre no Canal @RoboED para ficar por dentro das atualizações do nosso querido
 		process.env.secret_path,
 		process.env.port
 	].forEach(name => remove(name))
+
 	return bot.telegram.sendDocument(
 		process.env.log_chat,
 		{
@@ -169,6 +187,14 @@ plugins.forEach(p => {
 	var _ = require(`./plugins/${p}`)
 	dlogBot(`Install plugin: ${_.id}`)
 	bot.context.plugins.push(_)
+
+	if (_.install) {
+		try {
+			_.install()
+		} catch (e) {
+			processError(e, false, _)
+		}
+	}
 
 	if (_.plugin) {
 		bot.hears(_.regex, async (ctx) => {
