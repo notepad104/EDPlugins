@@ -81,7 +81,6 @@ describe('Plugins', function() {
 		var r = await test.sendMessageWithText('/ip 8.8.8.8')
 		expect(r.data.text).to.be.a('string')
 		expect(r.data.text).to.contain('*Provedor:* Google')
-		expect(r.data.text).to.contain('*Cidade:* Mountain View')
 		expect(r.data.text).to.contain('*Pais:* United States - US')
 	})
 	it('/ip hacknet.2018.br.top', async function() {
